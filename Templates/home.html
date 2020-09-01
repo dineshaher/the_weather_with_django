@@ -1,25 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Weather {{pincode}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
 
+
 <body>
-    <section class="hero is-primary">
+<section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
+                <div class="background_image" style="background-image:url({% static 'images/background.jpg' %})"></div>
                 <h1 class="title">
                     What's the weather like?
                 </h1>
             </div>
         </div>
     </section>
-    <section class="section">
+<section class="section">
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
@@ -27,25 +30,27 @@
                         {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
-                                <input class="form-control" type="text" name="pincode" placeholder="City Name">
+                                <input class="input" type="text" name="pincode" placeholder="Enter pincode...">
                             </div>
                             <div  class="control">
                                 <button type="submit" class="button is-info">
                                     Submit
+                                    <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
                         </div>
-                        {% if cod %}
-                        <div class="notification">hii</div>
+                        {% if cod  %}
+                            <div class="notification">pincode not found </div>
                         {% endif %}
                     </form>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section">
-        {% if name and desc and temp and wind and icon and humidity and cloud %}
-        <div class="container">
+<section class="section">
+
+    {% if name and desc and temp and wind and icon and humidity and cloud %}
+        <center class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
                     <div class="box">
@@ -59,6 +64,7 @@
                                 <div class="content">
                                     <p>
                                         <span class="title">{{name}}</span>
+                                        <br> {{time}}
                                         <br>
                                         <span class="subtitle">{{temp}}° c</span>
                                         <br>
@@ -77,11 +83,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
+        </center>
+    {% endif %}
     </section>
-    <footer class="footer">
-    </footer>
 </body>
 
 </html>
